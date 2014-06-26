@@ -227,7 +227,10 @@ static const int kStateKey;
     TPKeyboardAvoidingState *state = self.keyboardAvoidingState;
     UIEdgeInsets newInset = self.contentInset;
     CGRect keyboardRect = state.keyboardRect;
-    newInset.bottom = keyboardRect.size.height;
+    newInset.bottom = keyboardRect.size.height - (CGRectGetMaxY(keyboardRect) - CGRectGetMaxY(self.bounds));
+    if([self isKindOfClass:[UICollectionView class]]){
+        newInset.bottom = keyboardRect.size.height;
+    }
     return newInset;
 }
 
